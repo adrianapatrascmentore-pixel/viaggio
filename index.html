@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viaggio verso l'amore di sé</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root {
+  --cream:#F7F6ED; --ink:#331019; --wine:#6B1A28; --sage:#565745;
+  --ink-deep:#200910; --ink-mid:#4a1620; --sage-light:#7a7b68;
+  --cream-dark:#e8e7de; --fog:#c8c4b0; --mist:#8a8472;
+}
+body { background:var(--ink); color:var(--cream); font-family:'EB Garamond',serif; font-weight:400; font-size:1.1rem; line-height:1.7; overflow-x:hidden; }
+
+/* ── URGENCY BAR ── */
+.urgency-bar { background:linear-gradient(90deg,var(--ink-deep),var(--wine),var(--ink-deep)); padding:14px 20px; text-align:center; position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(107,26,40,0.5); }
+.urgency-bar p { font-size:0.78rem; letter-spacing:0.12em; color:var(--cream-dark); }
+.urgency-bar strong { color:var(--cream); }
+#timer { color:#e8b5a8; font-weight:500; }
+
+/* ── HERO ── */
+.hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:80px 24px 60px; position:relative; overflow:hidden; }
+.hero-glow { position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(107,26,40,0.35) 0%,transparent 65%),radial-gradient(ellipse 50% 60% at 80% 100%,rgba(86,87,69,0.20) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 10% 50%,rgba(51,16,25,0.40) 0%,transparent 50%); pointer-events:none; }
+.hero-particles { position:absolute; inset:0; pointer-events:none; }
+.p { position:absolute; border-radius:50%; background:rgba(247,246,237,0.5); animation:float var(--d) ease-in-out infinite alternate; }
+@keyframes float { from{opacity:0.1;transform:translateY(0)} to{opacity:0.6;transform:translateY(-8px)} }
+.hero-inner { position:relative; z-index:2; max-width:760px; }
+.hero-tag { display:inline-block; font-size:0.62rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--cream-dark); border:1px solid rgba(247,246,237,0.25); padding:7px 20px; margin-bottom:36px; opacity:0; animation:up 0.9s ease 0.2s forwards; }
+.hero-title { font-family:'Playfair Display',serif; font-size:clamp(2.6rem,7vw,5.4rem); font-weight:400; line-height:1.08; letter-spacing:0.02em; color:var(--cream); margin-bottom:12px; opacity:0; animation:up 1s ease 0.5s forwards; }
+.hero-title span { font-style:italic; color:#e8b5a8; }
+.hero-it { font-family:'Cormorant',serif; font-style:italic; font-size:clamp(1rem,2.5vw,1.35rem); color:var(--cream-dark); letter-spacing:0.06em; margin-bottom:40px; opacity:0; animation:up 1s ease 0.8s forwards; }
+.hero-hook { font-size:clamp(1rem,2.2vw,1.15rem); color:var(--fog); max-width:580px; margin:0 auto 20px; line-height:1.85; opacity:0; animation:up 1s ease 1s forwards; }
+.hero-hook strong { color:var(--cream); font-weight:400; }
+.divider-glyph { color:var(--sage-light); font-size:1rem; letter-spacing:0.7em; margin:32px 0; opacity:0; animation:up 1s ease 1.2s forwards; }
+.hero-cta-wrap { opacity:0; animation:up 1s ease 1.4s forwards; }
+.price-pre { font-size:0.65rem; letter-spacing:0.3em; color:#c47a6e; text-transform:uppercase; margin-bottom:4px; }
+.price-big { font-family:'Playfair Display',serif; font-size:4rem; color:var(--cream); line-height:1; }
+.price-big sup { font-size:1.8rem; vertical-align:super; }
+.price-was { font-size:0.8rem; color:var(--mist); text-decoration:line-through; margin-bottom:24px; }
+.btn { display:inline-block; background:linear-gradient(135deg,var(--wine),#4a1020); color:var(--cream); font-family:'EB Garamond',serif; font-size:0.95rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; text-decoration:none; padding:20px 60px; border:none; cursor:pointer; transition:transform 0.3s,box-shadow 0.3s; box-shadow:0 8px 40px rgba(107,26,40,0.5); position:relative; overflow:hidden; }
+.btn::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(247,246,237,0.08),transparent); opacity:0; transition:opacity 0.3s; }
+.btn:hover { transform:translateY(-3px); box-shadow:0 14px 50px rgba(107,26,40,0.65); }
+.btn:hover::after { opacity:1; }
+.btn-sub { font-size:0.7rem; color:var(--mist); margin-top:12px; }
+@keyframes up { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── SECTIONS ── */
+section { padding:100px 24px; position:relative; z-index:1; }
+.wrap { max-width:800px; margin:0 auto; }
+.wrap-narrow { max-width:640px; margin:0 auto; }
+.label { font-size:0.58rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--sage-light); text-align:center; margin-bottom:14px; }
+h2 { font-family:'Playfair Display',serif; font-size:clamp(1.9rem,4.5vw,3rem); font-weight:400; line-height:1.18; text-align:center; color:var(--cream); margin-bottom:16px; }
+h2 em { font-style:italic; color:#e8b5a8; }
+.sep { width:48px; height:1px; background:linear-gradient(90deg,transparent,var(--sage-light),transparent); margin:20px auto 48px; }
+p.lead { font-size:1.05rem; line-height:1.95; color:var(--fog); text-align:center; }
+
+/* ── MIRROR ── */
+.mirror-bg { background:var(--ink-deep); }
+.mirror-list { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(247,246,237,0.04); border:1px solid rgba(247,246,237,0.06); margin:48px 0; }
+@media(max-width:600px){.mirror-list{grid-template-columns:1fr;}}
+.mirror-item { padding:32px 28px; background:var(--ink-deep); transition:background 0.3s; }
+.mirror-item:hover { background:rgba(107,26,40,0.15); }
+.mirror-item p { font-family:'Cormorant',serif; font-style:italic; font-size:1.1rem; color:var(--fog); line-height:1.7; }
+.mirror-item p::before { content:'"'; color:#c47a6e; font-size:1.8rem; line-height:0; vertical-align:-0.4rem; margin-right:4px; }
+.mirror-item p::after { content:'"'; color:#c47a6e; font-size:1.8rem; line-height:0; vertical-align:-0.4rem; margin-left:4px; }
+.mirror-truth { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,4vw,2.6rem); font-style:italic; text-align:center; color:var(--cream); line-height:1.4; max-width:680px; margin:0 auto; padding:40px 0; border-top:1px solid rgba(247,246,237,0.08); border-bottom:1px solid rgba(247,246,237,0.08); }
+.mirror-truth em { color:var(--cream-dark); font-style:normal; }
+
+/* ── STORY ── */
+.story-bg { background:linear-gradient(180deg,var(--ink-deep) 0%,var(--ink-mid) 60%,var(--ink-deep) 100%); }
+.story-box { border-left:2px solid rgba(107,26,40,0.6); padding:0 0 0 36px; max-width:640px; margin:0 auto; }
+.story-box p { font-size:1rem; line-height:2; color:var(--fog); margin-bottom:24px; }
+.story-box p strong { color:var(--cream); font-weight:400; }
+.story-box p em { font-style:italic; color:#e8b5a8; }
+.story-name { font-family:'Cormorant',serif; font-style:italic; font-size:1.2rem; color:var(--cream-dark); margin-top:32px; }
+
+/* ── MEDITAZIONI ── */
+.what-bg { background:var(--ink); }
+.med-stack { display:flex; flex-direction:column; gap:2px; margin-top:8px; }
+.med { display:grid; grid-template-columns:72px 1fr; background:rgba(247,246,237,0.015); border:1px solid rgba(247,246,237,0.05); overflow:hidden; transition:border-color 0.4s,background 0.4s; cursor:default; }
+.med:hover { border-color:rgba(107,26,40,0.4); background:rgba(107,26,40,0.06); }
+.med-num { display:flex; align-items:center; justify-content:center; background:rgba(247,246,237,0.02); border-right:1px solid rgba(247,246,237,0.05); font-family:'Playfair Display',serif; font-size:2.2rem; color:rgba(86,87,69,0.35); padding:28px 0; min-width:72px; }
+.med-body { padding:28px; }
+.med-tag { font-size:0.52rem; letter-spacing:0.3em; text-transform:uppercase; color:#c47a6e; margin-bottom:8px; display:block; }
+.med-body h3 { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:400; color:var(--cream); text-align:left; margin-bottom:10px; }
+.med-body p { font-size:0.88rem; color:var(--fog); line-height:1.85; }
+.med-result { display:block; margin-top:14px; font-size:1rem; color:var(--sage-light); font-style:italic; padding-top:12px; border-top:1px solid rgba(86,87,69,0.2); }
+
+/* AUDIO PLAYER */
+.audio-section { background:var(--ink-mid); padding:60px 24px; text-align:center; }
+.audio-wrap { max-width:600px; margin:0 auto; border:1px solid rgba(107,26,40,0.4); padding:40px 36px; background:rgba(247,246,237,0.02); position:relative; }
+.audio-wrap::before { content:'✦ ASCOLTA UN\'ANTEPRIMA ✦'; position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--ink-mid); padding:0 16px; font-size:0.55rem; letter-spacing:0.3em; color:var(--sage-light); white-space:nowrap; }
+.audio-title { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:400; color:var(--cream); margin-bottom:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+@media(max-width:500px){ .audio-title { font-size:1.05rem; white-space:normal; } }
+.audio-sub { font-family:'EB Garamond',serif; font-style:italic; font-size:0.95rem; color:var(--fog); margin-bottom:24px; }
+audio { width:100%; outline:none; }
+audio::-webkit-media-controls-panel { background:rgba(107,26,40,0.3); }
+.audio-note { font-size:0.75rem; color:var(--mist); margin-top:16px; font-style:italic; }
+
+/* ── BONUS ── */
+.bonus-bg { background:linear-gradient(180deg,var(--ink) 0%,var(--ink-mid) 100%); }
+.bonus-box { border:1px solid rgba(247,246,237,0.12); padding:56px 48px; position:relative; background:rgba(247,246,237,0.02); max-width:700px; margin:0 auto; }
+.bonus-box::before { content:'✦ BONUS ESCLUSIVO ✦'; position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--ink); padding:0 20px; font-size:0.58rem; letter-spacing:0.3em; color:var(--sage-light); white-space:nowrap; }
+.bonus-title { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:400; color:var(--cream); text-align:center; margin-bottom:8px; }
+.bonus-subtitle { font-family:'Cormorant',serif; font-style:italic; font-size:1.1rem; color:#e8b5a8; text-align:center; margin-bottom:32px; }
+.bonus-list { list-style:none; margin-bottom:28px; }
+.bonus-list li { font-size:0.9rem; color:var(--fog); padding:12px 0; border-bottom:1px solid rgba(247,246,237,0.05); display:flex; gap:14px; align-items:flex-start; line-height:1.7; }
+.bonus-list li::before { content:'✦'; color:var(--sage-light); font-size:0.55rem; padding-top:5px; flex-shrink:0; }
+.bonus-list li strong { color:var(--cream); font-weight:400; }
+.bonus-note { font-size:0.82rem; color:var(--mist); text-align:center; font-style:italic; line-height:1.8; }
+.bonus-item { display:flex; gap:20px; align-items:flex-start; padding:20px 0; border-bottom:1px solid rgba(247,246,237,0.06); }
+.bonus-item:last-of-type { border-bottom:none; margin-bottom:20px; }
+.bonus-num { font-family:'Playfair Display',serif; font-size:1.8rem; color:rgba(86,87,69,0.3); line-height:1; flex-shrink:0; padding-top:2px; }
+.bonus-item strong { display:block; color:var(--cream); font-weight:400; margin-bottom:6px; font-size:1rem; }
+.bonus-item p { font-size:0.88rem; color:var(--fog); line-height:1.8; margin:0; }
+
+/* ── BEFORE AFTER ── */
+.transform-bg { background:var(--ink-deep); }
+.before-after { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin:48px 0; }
+@media(max-width:580px){.before-after{grid-template-columns:1fr;}}
+.ba-col { padding:40px 32px; }
+.ba-before { background:rgba(247,246,237,0.02); border:1px solid rgba(247,246,237,0.06); }
+.ba-after { background:rgba(107,26,40,0.08); border:1px solid rgba(107,26,40,0.25); }
+.ba-label { font-size:0.58rem; letter-spacing:0.35em; text-transform:uppercase; margin-bottom:24px; display:block; }
+.ba-before .ba-label { color:var(--mist); }
+.ba-after .ba-label { color:var(--sage-light); }
+.ba-col ul { list-style:none; }
+.ba-col ul li { font-size:0.9rem; color:var(--fog); padding:10px 0; border-bottom:1px solid rgba(247,246,237,0.04); line-height:1.6; display:flex; gap:10px; align-items:flex-start; }
+.ba-before li::before { content:'—'; color:var(--mist); flex-shrink:0; }
+.ba-after li::before { content:'✦'; color:var(--sage-light); font-size:0.6rem; padding-top:4px; flex-shrink:0; }
+.ba-after li { color:var(--cream); }
+
+/* ── OBJECTION ── */
+.obj-bg { background:linear-gradient(180deg,var(--ink) 0%,var(--ink-mid) 100%); }
+.obj-box { border:1px solid rgba(86,87,69,0.3); padding:52px 48px; background:rgba(247,246,237,0.015); position:relative; max-width:660px; margin:0 auto; }
+.obj-box::before { content:'?'; position:absolute; top:-28px; left:48px; font-family:'Playfair Display',serif; font-size:5rem; color:rgba(86,87,69,0.12); line-height:1; }
+.obj-q { font-family:'Playfair Display',serif; font-style:italic; font-size:1.3rem; color:var(--fog); margin-bottom:24px; line-height:1.5; }
+.obj-a { font-size:0.95rem; color:var(--fog); line-height:2; }
+.obj-a strong { color:var(--cream); font-weight:400; }
+.obj-a em { color:#e8b5a8; font-style:italic; }
+
+/* ── PRICING ── */
+.pricing-bg { background:var(--ink); text-align:center; }
+.price-card { max-width:500px; margin:0 auto; border:1px solid rgba(86,87,69,0.3); padding:56px 44px; position:relative; background:rgba(247,246,237,0.02); overflow:hidden; }
+.price-card::before { content:''; position:absolute; top:0;left:0;right:0; height:2px; background:linear-gradient(90deg,transparent,var(--wine),transparent); }
+.launch-pill { display:inline-block; background:rgba(107,26,40,0.2); border:1px solid rgba(107,26,40,0.45); color:#e8b5a8; font-size:0.58rem; letter-spacing:0.3em; padding:6px 18px; margin-bottom:32px; text-transform:uppercase; }
+.price-crossed { font-size:1.1rem; color:var(--mist); text-decoration:line-through; margin-bottom:4px; }
+.price-hero { font-family:'Playfair Display',serif; font-size:5.5rem; color:var(--cream); line-height:1; margin-bottom:4px; }
+.price-hero sup { font-size:2.2rem; vertical-align:super; }
+.price-note { font-size:0.72rem; color:var(--mist); margin-bottom:36px; }
+.includes { text-align:left; list-style:none; margin:32px 0; border-top:1px solid rgba(247,246,237,0.06); }
+.includes li { padding:14px 0; border-bottom:1px solid rgba(247,246,237,0.06); font-size:0.88rem; color:var(--fog); display:flex; gap:12px; align-items:flex-start; line-height:1.6; }
+.includes li::before { content:'✦'; color:var(--sage-light); font-size:0.55rem; padding-top:5px; flex-shrink:0; }
+.guarantee-box { margin-top:28px; padding:24px; border:1px solid rgba(86,87,69,0.2); background:rgba(86,87,69,0.05); }
+.guarantee-box p { font-size:0.82rem; color:var(--fog); line-height:1.9; font-style:italic; }
+.guarantee-box p strong { color:var(--cream); font-weight:400; font-style:normal; }
+.creator-proof { margin-top:20px; padding:20px 24px; border-left:2px solid rgba(107,26,40,0.5); text-align:left; }
+.creator-proof p { font-size:0.82rem; color:var(--fog); line-height:1.9; font-style:italic; }
+.creator-proof p strong { color:var(--cream); font-weight:400; font-style:normal; }
+
+/* ── FAQ ── */
+.faq-bg { background:var(--ink-deep); }
+.faq { max-width:660px; margin:0 auto; }
+.faq-item { border-bottom:1px solid rgba(247,246,237,0.07); }
+.faq-q { width:100%; background:none; border:none; color:var(--cream); font-family:'Playfair Display',serif; font-size:1.05rem; text-align:left; padding:26px 0; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+.faq-icon { color:var(--sage-light); font-size:1.4rem; transition:transform 0.3s; flex-shrink:0; }
+.faq-item.open .faq-icon { transform:rotate(45deg); }
+.faq-a { max-height:0; overflow:hidden; transition:max-height 0.4s ease,padding 0.3s; font-size:0.9rem; color:var(--fog); line-height:1.9; }
+.faq-item.open .faq-a { max-height:400px; padding-bottom:24px; }
+
+/* ── FINAL ── */
+.final-bg { background:linear-gradient(180deg,var(--ink-mid) 0%,var(--ink) 100%); text-align:center; padding:120px 24px; }
+.final-sub { font-size:1rem; color:var(--fog); max-width:480px; margin:0 auto 48px; line-height:1.9; }
+
+/* ── FOOTER ── */
+footer { background:var(--ink-deep); border-top:1px solid rgba(247,246,237,0.04); padding:32px 24px; text-align:center; font-size:0.7rem; color:var(--mist); letter-spacing:0.05em; line-height:2; }
+
+/* ── REVEAL ── */
+.r { opacity:0; transform:translateY(28px); transition:opacity 0.8s ease,transform 0.8s ease; }
+.r.on { opacity:1; transform:none; }
+@media(max-width:600px){
+  .med{grid-template-columns:50px 1fr;} .med-num{min-width:50px;font-size:1.6rem;}
+  .obj-box,.bonus-box,.price-card{padding:36px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  <p>✦ Prezzo di lancio <strong>€67</strong> — scade tra <span id="timer">96:00:00</span> · Dopo: €97 ✦</p>
+</div>
+
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-particles" id="pts"></div>
+  <div class="hero-inner">
+    <span class="hero-tag">5 meditazioni audio guidate · Accesso immediato</span>
+    <h1 class="hero-title">
+      Sei stanco<br>
+      di cercarti negli<br>
+      <span>occhi degli altri</span>
+    </h1>
+    <p class="hero-it">«Viaggio verso l'amore di sé»</p>
+    <div class="divider-glyph">✦ ◌ ✦</div>
+    <p class="hero-hook">
+      Sai già tutto sull'amore di sé.<br>
+      Hai letto libri. Guardato video. Capito con la mente.<br>
+      <strong>Ma nel corpo, nel cuore — non si sente ancora.</strong>
+    </p>
+    <p class="hero-hook" style="margin-top:0; color:var(--cream-dark);">
+      Queste 5 meditazioni lavorano dove le parole non arrivano —<br>
+      nel corpo, nel subconscio, nelle emozioni che hai represso per anni.<br>
+      <strong>Non per capire l'amore di sé. Per sentirlo davvero.</strong>
+    </p>
+    <div class="divider-glyph" style="margin:28px 0;">· · ·</div>
+    <div class="hero-cta-wrap">
+      <p class="price-pre">✦ Prezzo di lancio — solo 4 giorni ✦</p>
+      <p class="price-big"><sup>€</sup>67</p>
+      <p class="price-was">Prezzo normale: €97</p>
+      <a href="https://stan.store/adrianapatrascmentoreguarigione/p/viaggio-verso-lamore-di-s--5-meditazioni" class="btn">sì — voglio iniziare il mio viaggio</a>
+      <p class="btn-sub">Accesso immediato · Download istantaneo · Garanzia 7 giorni</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ MIRROR ════ -->
+<section class="mirror-bg">
+  <div class="wrap">
+    <p class="label r">Prima di continuare</p>
+    <h2 class="r">Se ti riconosci in almeno<br>una delle <em>frasi qui sotto...</em></h2>
+    <div class="sep r"></div>
+    <div class="mirror-list r">
+      <div class="mirror-item"><p>So che dovrei amarmi, ma non so come farlo in modo concreto.</p></div>
+      <div class="mirror-item"><p>Mi confronto con tutti e non esco mai vincitore.</p></div>
+      <div class="mirror-item"><p>Ripeto sempre gli stessi schemi nelle relazioni — abbandono, rifiuto, tradimento.</p></div>
+      <div class="mirror-item"><p>Metto tutti gli altri prima di me e alla fine mi sento completamente svuotato.</p></div>
+      <div class="mirror-item"><p>Cerco validazione e amore all'esterno, soprattutto dal partner.</p></div>
+      <div class="mirror-item"><p>Ho letto, ho capito — ma nella mia vita reale niente cambia.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ STORY ════ -->
+<section class="story-bg">
+  <div class="wrap">
+    <p class="label r">Perché ho creato questo pacchetto</p>
+    <h2 class="r">Ho vissuto tutto quello<br><em>che senti tu adesso</em></h2>
+    <div class="sep r"></div>
+    <div class="story-box r">
+      <p>Non ho mai avuto paura di dire che <strong>non mi amavo per niente.</strong> Mi confrontavo con tutti, cercavo validazione costantemente — soprattutto dal partner. Ripetevo sempre lo stesso schema nelle relazioni: abbandono, rifiuto, tradimento, umiliazione, ingiustizia. Ero <em>completamente disconnessa dal mio corpo, dalle mie emozioni.</em></p>
+      <p>Mettevo tutti al primo posto e io ero sempre l'ultima. Avevo blocchi finanziari, un lavoro che odiavo e un'ansia che non mi lasciava respirare. <strong>Leggevo sull'amore di sé, ma non applicavo nulla in modo concreto.</strong> Sapevo tutto con la mente. Non sentivo nulla con il cuore.</p>
+      <p>Poi ho iniziato a lavorare con queste tecniche — meditazione, respirazione, riprogrammazione. Non è stata magia. È stato <em>un lavoro reale, nel corpo, nel subconscio.</em> E le cose sono cambiate.</p>
+      <p>Oggi <strong>mi amo e mi accetto così come sono.</strong> Non cerco più validazione all'esterno. L'ansia è scomparsa. So mettere dei limiti. Mi metto al primo posto senza sentirmi in colpa. Guadagno dalla mia passione. <em>Ho scoperto chi sono davvero.</em></p>
+      <p>Queste meditazioni le ho create per me stessa e le pratico ogni giorno. <strong>Funzionano — perché le ho vissute sulla mia pelle.</strong> Le uso anche con i miei clienti nelle sessioni private 1:1, con gli stessi risultati. Le ho create per te perché so che le persone non hanno bisogno di più informazioni — hanno bisogno di uno strumento pratico che lavori dove le parole non arrivano.</p>
+      <p class="story-name">— con amore, per te 🌙</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ LE 5 MEDITAZIONI ════ -->
+<section class="what-bg">
+  <div class="wrap">
+    <p class="label r">Cosa ricevi</p>
+    <h2 class="r">5 meditazioni che lavorano<br><em>dove le parole non arrivano</em></h2>
+    <div class="sep r"></div>
+    <p class="lead r" style="margin-bottom:52px;">Nel corpo, nel subconscio<br>e nelle emozioni che hai represso per anni.</p>
+    <div class="med-stack">
+
+      <div class="med r">
+        <div class="med-num">01</div>
+        <div class="med-body">
+          <span class="med-tag">Guarigione · Bambino interiore</span>
+          <h3>La guarigione del bambino interiore</h3>
+          <p>Ti connetti con la parte di te ferita — quella che ha vissuto l'abbandono, il rifiuto, il tradimento, l'umiliazione, l'ingiustizia. Non con la mente. Con il cuore. Questa meditazione lavora direttamente nel subconscio per sciogliere gli schemi che si sono ripetuti nelle tue relazioni senza capire perché.</p>
+          <span class="med-result">Inizi ad amarti davvero, forse per la prima volta.</span>
+        </div>
+      </div>
+
+      <div class="med r">
+        <div class="med-num">02</div>
+        <div class="med-body">
+          <span class="med-tag">Liberazione · Senso di colpa</span>
+          <h3>Il perdono di sé</h3>
+          <p>Entri in contatto con le versioni di te che si sentono in colpa, che sentono di aver sbagliato, che pensano sia colpa loro. Il senso di colpa ti fa odiare te stesso e allontanarti da te. Questa meditazione ti libera e ti riporta a te stesso.</p>
+          <span class="med-result">Ti liberi dal peso di anni di autocritica.</span>
+        </div>
+      </div>
+
+      <div class="med r">
+        <div class="med-num">03</div>
+        <div class="med-body">
+          <span class="med-tag">Riconnessione · Essenza divina</span>
+          <h3>La connessione con il divino in te</h3>
+          <p>Esiste una parte di te già perfetta, guarita, amata, completa — che non ha bisogno di nulla dall'esterno. Questa meditazione ti riconnette con essa. Sentirai quel "va tutto bene proprio adesso" — e da quel luogo, manifesti una realtà completamente diversa.</p>
+          <span class="med-result">Scopri chi sei davvero, al di là dei traumi.</span>
+        </div>
+      </div>
+
+      <div class="med r">
+        <div class="med-num">04</div>
+        <div class="med-body">
+          <span class="med-tag">Liberazione · Corpo · Respirazione</span>
+          <h3>La liberazione delle emozioni attraverso la respirazione</h3>
+          <p>La guarigione non avviene nella mente. Avviene nel corpo. Attraverso la tecnica della respirazione con il suono, questa meditazione libera le emozioni bloccate e represse nel tuo corpo da anni. È profonda. Può essere intensa. Ed è esattamente ciò di cui hai bisogno.</p>
+          <span class="med-result">Liberi anni di traumi immagazzinati nel corpo.</span>
+        </div>
+      </div>
+
+      <div class="med r">
+        <div class="med-num">05</div>
+        <div class="med-body">
+          <span class="med-tag">Riprogrammazione · Subconscio</span>
+          <h3>Affermazioni per la riprogrammazione del subconscio</h3>
+          <p>Affermazioni specifiche per ogni trauma: abbandono, rifiuto, tradimento, umiliazione, ingiustizia. Non affermazioni generiche. Affermazioni che trasformano l'identità distorta da quei traumi a livello subconscio — per manifestare una nuova realtà. Perché la tua identità crea la tua realtà.</p>
+          <span class="med-result">Riprogrammi chi credi di essere.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ AUDIO PREVIEW ════ -->
+<section class="audio-section">
+  <div class="audio-wrap r">
+    <p class="audio-title">Senti la differenza con le tue orecchie</p>
+    <p class="audio-sub">Anteprima — Meditazione 4: La liberazione delle emozioni attraverso la respirazione</p>
+    <audio controls>
+      <source src="meditazione.mp3" type="audio/mpeg">
+    </audio>
+    <p class="audio-note">Ascolta e senti cosa succede nel tuo corpo.</p>
+  </div>
+</section>
+<section class="bonus-bg">
+  <div class="wrap">
+    <p class="label r">Non è tutto</p>
+    <h2 class="r">Con il pacchetto ricevi<br><em>il mio accompagnamento personale</em></h2>
+    <div class="sep r"></div>
+    <div class="bonus-box r">
+      <p class="bonus-title">Non sei solo in questo viaggio</p>
+
+      <div class="bonus-item">
+        <span class="bonus-num">✦</span>
+        <div>
+          <strong>20 giorni di supporto su WhatsApp con me</strong>
+          <p>Per 20 giorni dall'acquisto sono qui su WhatsApp per accompagnarti. Puoi scrivermi su quello che senti durante le meditazioni, le emozioni che emergono, i dubbi, i momenti difficili. Non sei solo con dei file audio — sei accompagnato da me, passo dopo passo.</p>
+        </div>
+      </div>
+
+      <p class="bonus-note">Un accompagnamento reale, personale, pensato per te.<br>— perché la trasformazione vera non avviene da soli.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ BEFORE / AFTER ════ -->
+<section class="transform-bg">
+  <div class="wrap">
+    <p class="label r">La trasformazione</p>
+    <h2 class="r">Dal <em>sopravvivere</em><br>al vivere con te stesso</h2>
+    <div class="sep r"></div>
+    <div class="before-after r">
+      <div class="ba-col ba-before">
+        <span class="ba-label">Prima</span>
+        <ul>
+          <li>Cerchi amore e validazione all'esterno</li>
+          <li>Ripeti sempre gli stessi schemi nelle relazioni</li>
+          <li>La voce critica interiore non tace mai</li>
+          <li>Le emozioni sono represse o travolgenti</li>
+          <li>Gli altri sono sempre al primo posto</li>
+          <li>Sai che devi amarti — ma non lo senti</li>
+          <li>Ansia, blocchi, senso di vuoto interiore</li>
+        </ul>
+      </div>
+      <div class="ba-col ba-after">
+        <span class="ba-label">Dopo</span>
+        <ul>
+          <li>Sei la tua fonte di amore e validazione</li>
+          <li>Comprendi e sciogli gli schemi ripetitivi</li>
+          <li>Compassione verso te stesso al posto della critica</li>
+          <li>Senti le emozioni e le liberi dal corpo</li>
+          <li>Tu sei al primo posto — senza senso di colpa</li>
+          <li>L'amore di sé diventa una pratica reale</li>
+          <li>Calma, connessione, senso di completezza</li>
+        </ul>
+      </div>
+    </div>
+    <p class="mirror-truth r" style="padding-top:16px;">
+      Allora questo pacchetto non è una coincidenza — <em>è arrivato a te perché sei pronto.</em>
+    </p>
+  </div>
+</section>
+
+<!-- ════ OBIEZIONE ════ -->
+<section class="obj-bg">
+  <div class="wrap-narrow">
+    <p class="label r">So a cosa stai pensando</p>
+    <h2 class="r" style="margin-bottom:48px;">"Ho già provato.<br><em>Perché questo dovrebbe funzionare?"</em></h2>
+    <div class="obj-box r">
+      <p class="obj-q">"Ho letto libri, guardato video, capito tutto — ma nella mia vita reale niente è cambiato."</p>
+      <p class="obj-a">
+        Sai perché? Perché <strong>l'informazione non guarisce il trauma.</strong> Il trauma non vive nella mente — vive nel corpo, nel sistema nervoso, nel subconscio.
+        <br><br>
+        Puoi leggere 100 libri sul nuoto e non saprai comunque nuotare se non entri in acqua.
+        <br><br>
+        Queste meditazioni non ti spiegano l'amore di sé. <em>Ti ci portano direttamente</em> — nel corpo, nell'emozione, nel subconscio. Lavorano esattamente dove le parole non arrivano.
+        <br><br>
+        <strong>Ma funzionano solo se le pratichi.</strong> Non se restano salvate nel telefono. La guarigione richiede pratica — e questo pacchetto ti dà tutto quello che ti serve per iniziare oggi.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PRICING ════ -->
+<section class="pricing-bg" id="pricing">
+  <div class="wrap">
+    <p class="label r">Sei pronto?</p>
+    <h2 class="r">Scegli di mettere<br><em>te stesso al primo posto</em></h2>
+    <div class="sep r"></div>
+    <div class="price-card r">
+      <span class="launch-pill">✦ Prezzo di lancio · Solo 4 giorni ✦</span>
+      <p class="price-crossed">€97</p>
+      <p class="price-hero"><sup>€</sup>67</p>
+      <p class="price-note">Pagamento unico · Accesso a vita · Nessun abbonamento</p>
+      <ul class="includes">
+        <li>Meditazione 1 — La guarigione del bambino interiore</li>
+        <li>Meditazione 2 — Il perdono di sé</li>
+        <li>Meditazione 3 — La connessione con il divino in te</li>
+        <li>Meditazione 4 — La liberazione delle emozioni attraverso la respirazione</li>
+        <li>Meditazione 5 — Affermazioni per la riprogrammazione del subconscio</li>
+        <li>💬 20 giorni di supporto WhatsApp con Adriana — sono qui per accompagnarti nel tuo percorso</li>
+        <li>Accesso immediato · Formato MP3 · Su qualsiasi dispositivo</li>
+      </ul>
+      <a href="https://stan.store/adrianapatrascmentoreguarigione/p/viaggio-verso-lamore-di-s--5-meditazioni" class="btn" style="width:100%;display:block;text-align:center;">
+        sì — inizio il mio viaggio ✦ €67
+      </a>
+      <div class="creator-proof">
+        <p>Ho creato queste meditazioni per me stessa e le pratico ogni giorno. <strong>Funzionano — perché le ho vissute sulla mia pelle.</strong> Sono gli stessi strumenti che uso con i miei clienti nelle sessioni private 1:1. Sono sicura di quello che ti offro.</p>
+      </div>
+      <div class="guarantee-box">
+        <p>🛡️ <strong>Garanzia 7 giorni.</strong> Se pratichi le meditazioni per 7 giorni e senti che non fanno per te, ti rimborso integralmente. Senza domande. La garanzia è per chi pratica — perché so che chi le pratica ottiene risultati.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section class="faq-bg">
+  <div class="wrap">
+    <p class="label r">Domande frequenti</p>
+    <h2 class="r" style="margin-bottom:48px;">Risposte <em>chiare</em></h2>
+    <div class="faq r">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tog(this)">Non ho mai meditato. Funziona per me? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Sì. Le meditazioni sono completamente guidate — voce, ritmo, istruzioni chiare. Non hai bisogno di alcuna esperienza precedente. Se sai respirare e ascoltare, puoi fare queste meditazioni.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tog(this)">Quanto dura ogni meditazione? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Tra i 18 e i 24 minuti. Abbastanza da lavorare in profondità — abbastanza breve da poterne fare una al mattino o alla sera, anche nelle giornate più impegnate.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tog(this)">Devo farle in ordine? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Consigliato sì — sono concepite come un viaggio progressivo. Ma non è obbligatorio. Puoi tornare a qualsiasi meditazione tutte le volte che senti di averne bisogno.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tog(this)">Ho già provato le meditazioni e non ho sentito nulla. Perché sarebbe diverso? <span class="faq-icon">+</span></button>
+        <div class="faq-a">La differenza è che queste meditazioni sono create con tecniche specifiche di guarigione del trauma — non semplici meditazioni di rilassamento. La tecnica della respirazione con il suono, il lavoro con il bambino interiore, le affermazioni mirate su traumi specifici — tutto questo lavora a un livello molto più profondo della classica mindfulness.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tog(this)">Come funziona la garanzia? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Hai 7 giorni per praticare le meditazioni. Se dopo averle praticate senti che non fanno per te, scrivi e ti rimborso integralmente. La garanzia è per chi pratica — perché la guarigione richiede pratica, non solo ascolto passivo.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tog(this)">Il prezzo aumenta davvero dopo 3 giorni? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Sì. €67 è il prezzo di lancio, disponibile solo per i primi 4 giorni. Dopo diventa €97. Non è una tattica di marketing — è il prezzo reale dopo il lancio.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tog(this)">Come funziona il supporto WhatsApp? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Dopo l'acquisto ricevi automaticamente una email con il mio numero WhatsApp. Scrivimi quando vuoi — sono qui per accompagnarti per 20 giorni dall'acquisto.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="tog(this)">Il supporto WhatsApp di 20 giorni — cosa posso chiederti? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Tutto quello che riguarda il tuo percorso — come stai vivendo le meditazioni, le emozioni che emergono, i dubbi, i momenti difficili. Sono qui per accompagnarti, non solo per rispondere a domande tecniche.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ FINAL CTA ════ -->
+<section class="final-bg">
+  <div class="wrap-narrow">
+    <p class="label r">L'ultima domanda</p>
+    <h2 class="r">Quanti altri anni vuoi<br><em>cercarti negli occhi degli altri?</em></h2>
+    <div class="sep r"></div>
+    <p class="final-sub r">
+      L'amore di sé non arriva da una rivelazione.<br>
+      Arriva dalla pratica. Meditazione dopo meditazione.<br>
+      Dal momento in cui scegli di mettere <strong>te stesso al primo posto.</strong><br><br>
+      Quel momento può essere adesso.
+    </p>
+    <div class="r">
+      <a href="https://stan.store/adrianapatrascmentoreguarigione/p/viaggio-verso-lamore-di-s--5-meditazioni" class="btn">sì — inizio oggi ✦ €67</a>
+      <p class="btn-sub" style="margin-top:14px;">Accesso immediato · Garanzia 7 giorni · Il prezzo scade tra <span id="timer2">--:--:--</span></p>
+    </div>
+    <div class="divider-glyph r" style="margin-top:60px;opacity:0.4;">✦ ◌ ✦</div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2024 · Viaggio verso l'amore di sé · Tutti i diritti riservati</p>
+  <p>Termini e condizioni · Informativa sulla privacy · Contatti</p>
+</footer>
+
+<script>
+// Particles
+const pts=document.getElementById('pts');
+for(let i=0;i<60;i++){
+  const p=document.createElement('div');p.className='p';
+  const s=Math.random()*2+0.4;
+  p.style.cssText=`width:${s}px;height:${s}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*5}s;animation-delay:${Math.random()*6}s;`;
+  pts.appendChild(p);
+}
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*70);obs.unobserve(e.target);}
+  });
+},{threshold:0.08});
+document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+
+// FAQ
+function tog(btn){
+  const item=btn.parentElement;
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+
+// Countdown — deadline fisso 4 giorni dal lancio
+const end=1773513503300;
+function fmt(ms){
+  const h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000);
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+function tick(){
+  const diff=Math.max(0,end-Date.now()),str=fmt(diff);
+  document.getElementById('timer').textContent=str;
+  const t2=document.getElementById('timer2');if(t2)t2.textContent=str;
+}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>
